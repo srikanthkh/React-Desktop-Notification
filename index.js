@@ -6,6 +6,7 @@ var React = require('react');
 var Notifier = React.createClass({
   statics: {
     start: function(title, context, url, icon, name) {
+      console.log('icon', icon);
       name=name||("notiwin"+(function(n) {
         var rnd = "";
         for (var i = 0; i < n; i++)
@@ -20,13 +21,13 @@ var Notifier = React.createClass({
       if (Notification.permission !== "granted") {
         Notification.requestPermission();
       } else {
-        icon=(icon&&icon.match(/^.*\.(jpeg|jpg|gif|png)/gi))?icon:"http://ob9oayzh3.bkt.clouddn.com/images.png"
         var notification = new Notification(title, {
           icon: icon,
           body: context,
         });
         notification.onclick = function() {
-          window.open(url, name);
+          window.focus();
+          notification.close();
         };
       }
     }
